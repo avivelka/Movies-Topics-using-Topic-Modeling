@@ -73,8 +73,8 @@ from urllib import parse
 # movie.getPopularity()
 # movie.getRevenue()
 
-from movie import Movie
-from movie_repo import MovieRepo
+# from movie import Movie
+# from movie_repo import MovieRepo
 
 
 # keywords = ["comedy", "airplane"]
@@ -92,15 +92,15 @@ from movie_repo import MovieRepo
 # movies_to_topics = ai_repo.get_movies_to_topics()
 
 
-movie_repo = MovieRepo()
-movies = movie_repo.get_movies(pages=1)
-# movies = movie_repo.get_page(1, 2019)
+# movie_repo = MovieRepo()
+# movies = movie_repo.get_movies(pages=1)
+# # movies = movie_repo.get_page(1, 2019)
 
-for movie in movies:
-    movie.printMe()
+# for movie in movies:
+#     movie.printMe()
 
-print(len(movies))
-print(movie.keywords)
+# print(len(movies))
+# print(movie.keywords)
 # keywords = movie_repo.union_keywords(movies)
 
 
@@ -113,3 +113,18 @@ print(movie.keywords)
 # print(keywords)
 
 
+from db.db_builder import db_builder
+from api.tmdb import tmdb
+from db.repo import movies_repo
+from topic_modeling.builder import topics_builder
+
+NUM_OF_TOPICS = 4
+NUM_OF_ITER = 10
+
+db_builder.build_movies_keywords_database(tmdb, movies_repo)
+
+topics_builder.build_document_term_matrix(movies_repo)
+topics_builder.run_diagnose(NUM_OF_TOPICS, NUM_OF_ITER)
+
+prob = topics_builder.get_probablities()
+topics = topics_builder.get_topics()
