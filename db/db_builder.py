@@ -7,4 +7,4 @@ def build_movies_keywords_database(tmdb, movies_repo):
         movies_repo.insert_movies(movies)
         movies_repo.insert_keywords(keywords)
         movies_ids = [movie.id for movie in movies]
-        movies_repo.insert_movie_keywords(zip(movies_ids, keywords))
+        movies_repo.insert_movies_keywords(zip(movies_ids, keywords))
