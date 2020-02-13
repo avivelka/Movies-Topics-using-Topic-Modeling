@@ -28,7 +28,9 @@ def build_movies_keywords_database(tmdb, movies_repo, pages=1):
         with open(const.API_PAGE_FILE_NAME, "w") as page_file:
             page_file.write(str(from_page))
 
-    print("iteration is done!")
+    print("movies count: ", movies_repo.count_movies())
+    print("api_page: ", from_page)
+    print()
 
 
 def jsonToMovies(json_movies):
