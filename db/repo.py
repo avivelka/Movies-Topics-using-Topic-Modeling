@@ -68,7 +68,7 @@ class MovieRepo:
         self._conn.execute(""" 
             CREATE TABLE IF NOT EXISTS keywords (
                 id              INT         PRIMARY KEY,
-                name         TEXT        NOT_NULL    
+                name            TEXT        NOT_NULL    
             )
         """)
 
@@ -155,6 +155,19 @@ class MovieRepo:
     def get_all_movies_keywords(self):
         cur = self._conn.cursor()
         cur.execute("SELECT * FROM movies_keywords")
+        return cur.fetchall()
+
+    def get_movies_and_their_keywords(self):
+        cur = self._conn.cursor()
+        cur.execute(
+            ''' SELECT 
+                    movies.title,
+                    keywords.name      
+                FROM movies                                 
+                    INNER JOIN movies_keywords                    
+                        ON movies.id = movies_keywords.movie_id
+                    INNER JOIN keywords                                            
+                        ON movies_keywords.keyword_id = keywords.id ''')
         return cur.fetchall()
 
 
