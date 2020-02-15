@@ -6,6 +6,7 @@ import scipy.sparse
 
 from sklearn.feature_extraction.text import CountVectorizer
 from gensim import matutils, models
+from nltk import word_tokenize, pos_tag
 
 
 class TopicsBuilder:
@@ -14,11 +15,12 @@ class TopicsBuilder:
         data = self._combine_dict_values(data)   
         data_df = self._make_data_frame(data)
         data = self._clean_data(data_df)
+        data = self._nouns_only_data(data_df)
 
         cv = CountVectorizer(stop_words='english')
-        dtm = self._make_document_term_matrix(data, cv)
+        self._dtm = self._make_document_term_matrix(data, cv)
 
-        self._tdm = dtm.transpose()
+        self._tdm = self._dtm.transpose()
         self._corpus = self._make_corpus()
         self._id2word = self._make_id2word_dict(cv)
 
@@ -40,6 +42,17 @@ class TopicsBuilder:
 
     def _clean_data(self, data_df):
         return pd.DataFrame(data_df.transcript.apply(self._clean_text))
+
+    def _nouns_only_data(self, data_df):
+        return pd.DataFrame(data_df.transcript.apply(self._nouns_text))
+
+    def _nouns_text(self, text):
+        '''Given a string of text, tokenize the text and pull out only the nouns.'''
+        is_noun = lambda pos: pos[:2] == 'NN'
+        tokenized = word_tokenize(text)
+        all_nouns = [word for (word, pos) in pos_tag(tokenized) if is_noun(pos)] 
+        return ' '.join(all_nouns)
+
 
     def _clean_text(self, text):
         '''Make text lowercase, remove text in square brackets, remove punctuation and remove words containing numbers.'''
@@ -74,4 +87,13 @@ class TopicsBuilder:
         return self._lda.print_topics()
 
     def get_topics(self):
-        pass
+        corpus = self._lda[self._corpus]
+        topics = []
+
+        for movie_topics in corpus:
+            topic_index, _ = max(movie_topics,key=lambda t: t[1])
+            topics.append(topic_index)
+
+        return list(zip(self._dtm.index, topics))
+
+

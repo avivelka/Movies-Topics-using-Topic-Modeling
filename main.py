@@ -132,14 +132,23 @@ def convert_tuples_to_dir(movies_data):
         data[movie_name].append(keyword_name)
     return data
 
+def filter_data(movies_data):
+    new_data = {}
+    for movie_name in movies_data.keys():
+        if (len(movies_data[movie_name]) >= 5):
+            new_data[movie_name] = movies_data[movie_name]
+    return new_data
+
 # filtering movies maybe
 movies_data = movies_repo.get_movies_and_their_keywords()
 movies_data = convert_tuples_to_dir(movies_data)
+movies_data = filter_data(movies_data)
+print(len(movies_data))
 
 topics_builder = TopicsBuilder(movies_data)
-topics_builder.run_diagnose(3, 20)
+topics_builder.run_diagnose(10, 80)
 prob = topics_builder.get_probablities()
-
+topics = topics_builder.get_topics()
 
 
 
