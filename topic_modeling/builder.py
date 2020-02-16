@@ -95,5 +95,3 @@ class TopicsBuilder:
             topics.append(topic_index)
 
         return list(zip(self._dtm.index, topics))
-
-

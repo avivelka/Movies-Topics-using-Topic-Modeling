@@ -175,6 +175,20 @@ class MovieRepo:
         cur.execute("SELECT * FROM movies WHERE title=?",[name])
         return cur.fetchall()
 
+    def get_keywords_by_name(self, name):
+        cur  = self._conn.cursor()
+        cur.execute(
+            ''' SELECT 
+                    movies.title,
+                    keywords.name      
+                FROM movies                                 
+                    INNER JOIN movies_keywords                    
+                        ON movies.id = movies_keywords.movie_id
+                    INNER JOIN keywords                                            
+                        ON movies_keywords.keyword_id = keywords.id
+                    WHERE movies.title = ?''', [name])
+        return cur.fetchall()
+
 movies_repo = MovieRepo()
 movies_repo.create_tables()
 atexit.register(movies_repo.close)
