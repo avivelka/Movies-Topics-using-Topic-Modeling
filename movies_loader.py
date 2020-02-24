@@ -6,7 +6,6 @@ import db.db_builder as db_builder
 from api.tmdb import tmdb
 from db.repo import movies_repo
 
-
 if not path.isfile(const.API_PAGE_FILE_NAME):
     with open(const.API_PAGE_FILE_NAME, "w+") as page_file:
         page_file.write("0")
