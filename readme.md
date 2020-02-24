@@ -26,6 +26,19 @@ Then, we ran the topic modeling algorithm on our filtered data and tried to matc
 
 **Notice:**  The 2nd step is making a requests to the TMDB API. Each request get 20 movies and their keywords. Each request is followed by 20 seconds sleep in order to prevent API overload.
 
-##  Results
+## Full Analysis 
+
+Uncomment these lines in ```main.py``` to see all the movies sorted by their topics and their years
+```print("=== Movies by years and topics ===")
+print(movies_by_years_and_topics)
+print()```
+
+## Results
+Top popular movies by their topics (X-topics names, Y-amount of movies in percent(%)) 
+![alt text](https://i.ibb.co/QjHsKLk/100.png)
+
+Distribution of the popular movies by their topics and their years (X-topics names, Y-amount of movies (%))
+![alt text](https://i.ibb.co/GCGStH6/image.png)
+
 
 
