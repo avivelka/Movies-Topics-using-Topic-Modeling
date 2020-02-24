@@ -29,15 +29,18 @@ Then, we ran the topic modeling algorithm on our filtered data and tried to matc
 ## Full Analysis 
 
 Uncomment these lines in ```main.py``` to see all the movies sorted by their topics and their years
-```print("=== Movies by years and topics ===")
+
+```python
+print("=== Movies by years and topics ===")
 print(movies_by_years_and_topics)
-print()```
+print()
+```
 
 ## Results
-Top popular movies by their topics (X-topics names, Y-amount of movies in percent(%)) 
+### Top popular movies by their topics 
 ![alt text](https://i.ibb.co/QjHsKLk/100.png)
 
-Distribution of the popular movies by their topics and their years (X-topics names, Y-amount of movies (%))
+### Distribution of the popular movies by their topics and their years
 ![alt text](https://i.ibb.co/GCGStH6/image.png)
 
 
