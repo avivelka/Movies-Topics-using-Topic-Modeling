@@ -22,7 +22,7 @@ Then, we ran the topic modeling algorithm on our filtered data and tried to matc
 1. Change the constant ```TOTAL MOVIES``` in ```const.py``` to match the number of movies you want to load.
 2. Run the python script ```movies_loader.py```. 
 3. Change the constant ```NUM_OF_TOPICS``` and ```NUM_OF_ITER``` to match your topics modeling algorithm parameters that you want.
-4. Run the python script ```topic_modeling_analyze.py``` to run the topic modeling algorithm. The results will be printed to the screen.
+4. Run the python script ```main.py``` to run the topic modeling algorithm. The results will be printed to the screen.
 
 **Notice:**  The 2nd step is making a requests to the TMDB API. Each request get 20 movies and their keywords. Each request is followed by 20 seconds sleep in order to prevent API overload.
 
